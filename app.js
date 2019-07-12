@@ -31,3 +31,15 @@ exampleArray.splice(0);
 // exampleArray ~ will be empty. This is the new concept I recently learned to how to empty an array.
 
 console.log(exampleArray);
+
+// Testing my new learned skill ~ How to empty an array.
+
+var exampleArray2 = [1, 2, 3, 4, 5];
+
+// Now it'll empty the new array that we created just above.
+
+exampleArray2.splice(0);
+
+// exampleArray2 ~ is empty now.
+
+console.log(exampleArray2);
