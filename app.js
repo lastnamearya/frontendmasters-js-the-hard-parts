@@ -1,49 +1,33 @@
-// Example:-  Optional "this" argument usage in forEach.
+// Splice in JavaScript
 
-// ********************************************************************** //
+var exampleArray = [1, 2, 3, 4, 5, 6];
 
-// For testing Purpose ~ If we forget to pass "this" in forEach in case of a prototype.
+// It'll remove the two elements from an array starting from index 0 i.e from first.
 
-var sum = 0;
+exampleArray.splice(0, 2);
 
-var count = 0;
+// exampleArray ~ [3, 4, 5, 6]
 
-// ********************************************************************** //
+console.log(exampleArray);
 
-// First, We created a constructor function to generate a counter object.
+// We can elements to an array as well while removing, like here below it'll start removing from the first index value and will remove one element and then add three more elements later ~ 10, 10, 10 in place of removed element.
 
-function Counter() {
-  this.sum = 0;
-  this.count = 0;
-}
+exampleArray.splice(0, 1, 10, 10, 10);
 
-// Now we're going to create an counter instance.
+// exampleArray ~ [10, 10, 10, 4, 5, 6]
 
-const obj = new Counter();
+// If we by mistake forget to pass how many elements to remove or explicty didn't pass no of elements to remove after index position from where to start removing. It'll remove all the items of the array from the index position value we passed.
 
-console.log(obj);
+exampleArray.splice(1);
 
-// Now we're going to create a property function on our Counter function's prototype object. That'll accept an array as a argument and add all the array items to the sum property of our counter instance & update counter instance count property to the no of times it executed.
+// exampleArray ~ [10]
 
-Counter.prototype.add = function(array) {
-  array.forEach(function(entry) {
-    this.sum += entry;
-    ++this.count;
+console.log(exampleArray);
 
-    // Here If we didn't pass "this" keyword explicitly as an additional argument so above "this" value will reference to the global  window object and updates the global sum and count variables. That we created on top to test.
-  });
-};
+// using above method of explicity not passing how many elements to remove we can empty the complete array by passing starting index value 0.
 
-// Testing by passing an array and calling our add property on counter instance.
+exampleArray.splice(0);
 
-obj.add([1, 2, 3, 4]);
+// exampleArray ~ will be empty. This is the new concept I recently learned to how to empty an array.
 
-// It'll be Counter { sum: 0, count: 0} Becasue we forget to pass "this" explicity in above forEach and it'll reference to the top above sum and count variables that are defined on our global window object.
-
-console.log(obj);
-
-// Global sum will be 10 and count will be 4 now.
-
-console.log(sum);
-
-console.log(count);
+console.log(exampleArray);
