@@ -1,34 +1,28 @@
-//Extension 3
+// forEach ~ The typical use case is to execute side effects.
 
-// should log: [5, 15]
+const exampleArray = [1, 2, 3, 4];
 
-// function intersection(arrays) {
-//   console.log(arguments.length);
-//   const intersectionArray = [];
-//   for (let i = 0; i < arguments.length; i++) {
-//     for (let i = 0; i < arguments[i].length; i++) {
-//       if (arguments[i++].includes(arguments[i][i])) {
-//         intersectionArray.push(arguments[i][i]);
-//       }
-//     }
-//   }
-// }
+function forEach(array, callback) {
+  // First We check whether the passed array is an array data type or not.
 
-// console.log(
-//   intersection([5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20])
-// );
+  // Array.isArray(variable) ~ will return true if passed variable is an array otherwise it'll return false.
 
-var arrayOne = [5, 10, 15, 20];
+  if (Array.isArray(array)) {
+    // We'll execute a loop over array that pass every index value of array to the callback.
 
-var arrayTwo = [15, 88, 1, 5, 7];
+    for (let i = 0; i < array.length; i++) {
+      // Here, i stands for index and array is the original array that we're passing. Both of these values are optional except the array[i] i.e index value of array argument.
 
-const intersectionArray = [];
-
-for (let i = 0; i < arrayOne.length; i++) {
-  console.log(i);
-  if (arrayTwo.includes(arrayOne[i])) {
-    intersectionArray.push(arrayOne[i]);
+      callback(array[i], i, array);
+    }
+  } // Else, we'll notify user to pass array data type.
+  else {
+    console.error("Please pass an array data type as an argument.");
   }
 }
 
-console.log(intersectionArray);
+// Note: forEach not going to return us anything in the end, So returned value from forEach will be undefined.
+
+forEach(exampleArray, function(n) {
+  console.table(n + 2);
+});
