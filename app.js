@@ -1,28 +1,33 @@
-// forEach ~ The typical use case is to execute side effects.
+// Example:-  Optional "this" argument usage in forEach.
 
-const exampleArray = [1, 2, 3, 4];
+// First, We created a constructor function to generate a counter object.
 
-function forEach(array, callback) {
-  // First We check whether the passed array is an array data type or not.
-
-  // Array.isArray(variable) ~ will return true if passed variable is an array otherwise it'll return false.
-
-  if (Array.isArray(array)) {
-    // We'll execute a loop over array that pass every index value of array to the callback.
-
-    for (let i = 0; i < array.length; i++) {
-      // Here, i stands for index and array is the original array that we're passing. Both of these values are optional except the array[i] i.e index value of array argument.
-
-      callback(array[i], i, array);
-    }
-  } // Else, we'll notify user to pass array data type.
-  else {
-    console.error("Please pass an array data type as an argument.");
-  }
+function Counter() {
+  this.sum = 0;
+  this.count = 0;
 }
 
-// Note: forEach not going to return us anything in the end, So returned value from forEach will be undefined.
+// Now we're going to create an counter instance.
 
-forEach(exampleArray, function(n) {
-  console.table(n + 2);
-});
+const obj = new Counter();
+
+console.log(obj);
+
+// Now we're going to create a property function on our Counter function's prototype object. That'll accept an array as a argument and add all the array items to the sum property of our counter instance & update counter instance count property to the no of times it executed.
+
+Counter.prototype.add = function(array) {
+  array.forEach(function(entry) {
+    this.sum += entry;
+    ++this.count;
+
+    // Here we're passing "this" keyword explicitly as an additional argument so above "this" value will bind to the instance on which we're going to execute this property function. Otherwise "this" will reference to the global object.
+  }, this);
+};
+
+// Testing by passing an array and calling our add property on counter instance.
+
+obj.add([1, 2, 3, 4]);
+
+// It'll be Counter { sum: 10, count: 4}
+
+console.log(obj);
