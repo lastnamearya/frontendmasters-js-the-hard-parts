@@ -1,38 +1,18 @@
-// Slice can return an Array for Array-like-Objects.
+// Array.prototype.slice binding on Function.prototype
 
-function incorrectList() {
-  // Why it's important to understand "this" in JavaScript the reason is this ~ here nothing is going to happen because we called slice on Array.prototype not on this function.
-  return Array.prototype.slice(arguments);
+// Here first we created a reference of our slice method and assigned it in a variable unboundSlice.
+
+var unboundSlice = Array.prototype.slice;
+
+// Now we explicity assign a property function ~ slice on the Function prototype and binded that property on the slice method that we above created a reference.
+
+var slice = Function.prototype.call.bind(unboundSlice);
+
+function list() {
+  // Now our arguments object is automatically binded to our slice method.
+  return slice(arguments);
 }
 
-// It'll be an empty array because nothing is happened as forget this binding above.
+// It'll be [1, 2, 3]
 
-var list1 = incorrectList(1, 2, 3, 4);
-
-// empty array.
-
-console.log(list1);
-
-// Let's fix above 'this' keyword mistake ~ This example can be in my Blog.
-
-// Here 'this' is not seen but it's explicity binded to the exectuion context on which slice is executed ~ arguments object.
-
-function correctList() {
-  return Array.prototype.slice.call(arguments);
-}
-
-var list2 = correctList(1, 2, 3, 4);
-
-// Here we got ~ [1, 2, 3, 4] Array from array-like-object
-
-console.log(list2);
-
-// In the end we learned two things.
-
-/*
-
-  1. Array.prototype.slice() can give us an array for array like objects.
-
-  2. We have to explicity bind "this" in Prototype where we're going to call ~ Array.prototype.slice.call(arguments)
-
-*/
+console.log(list(1, 2, 3));
