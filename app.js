@@ -47,3 +47,31 @@ console.log(nestedNumbersCopy);
 // The key concept to understand is we pushed or reassigned the reference index not did something new in memory allocation. That's the gotcha.
 
 console.log(nestedNumbers);
+
+// Let's put this to to Practice to Deeply understand the shallow copy in nested array / objects.
+
+var arrayOne = [[1], [2], [3], [4]];
+
+// We created a new shallow copy using Array.from()
+
+var arrayTwo = Array.from(arrayOne);
+
+// same as arrayOne
+
+console.log(arrayTwo);
+
+// We pushed a new element to arrayTwo, it won't be updated in arrayOne. Because it not going to be reference value.
+
+arrayTwo.push(5);
+
+// It'll remain same unchanged ~ [[1], [2], [3], [4]]
+
+console.log(arrayOne);
+
+// Now we changed the nested value of our original arrayOne ~ See we updated a nested value and that has typeof "object" So it'll be shared with our shallow copy instance as well.
+
+arrayOne[3].push = "new value";
+
+// Now it'll become ~ [[1], [2], [3], [4, "new value"], [5]]
+
+console.log(arrayTwo);
