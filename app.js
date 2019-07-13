@@ -1,19 +1,38 @@
-// Slice in JavaScript
+// Slice can return an Array for Array-like-Objects.
 
-var animals = ["ant", "bison", "camel", "duck", "elephant"];
+function incorrectList() {
+  // Why it's important to understand "this" in JavaScript the reason is this ~ here nothing is going to happen because we called slice on Array.prototype not on this function.
+  return Array.prototype.slice(arguments);
+}
 
-// It'll return ["camel", "duck", "elephant"]
+// It'll be an empty array because nothing is happened as forget this binding above.
 
-console.log(animals.slice(2));
+var list1 = incorrectList(1, 2, 3, 4);
 
-// Here index value of 4 on animals is not going to included. It's like excluded value that we explicity passed.
+// empty array.
 
-// It'll return ["camel", "duck"]
+console.log(list1);
 
-console.log(animals.slice(2, 4));
+// Let's fix above 'this' keyword mistake ~ This example can be in my Blog.
 
-// It'll return elements with index from 1 to 4, see 5 is explicitly passed as not included value.
+// Here 'this' is not seen but it's explicity binded to the exectuion context on which slice is executed ~ arguments object.
 
-// It'll return ["bison", "camel", "duck", "elephant"]
+function correctList() {
+  return Array.prototype.slice.call(arguments);
+}
 
-console.log(animals.slice(1, 5));
+var list2 = correctList(1, 2, 3, 4);
+
+// Here we got ~ [1, 2, 3, 4] Array from array-like-object
+
+console.log(list2);
+
+// In the end we learned two things.
+
+/*
+
+  1. Array.prototype.slice() can give us an array for array like objects.
+
+  2. We have to explicity bind "this" in Prototype where we're going to call ~ Array.prototype.slice.call(arguments)
+
+*/
