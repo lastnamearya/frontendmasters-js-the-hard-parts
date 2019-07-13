@@ -1,25 +1,19 @@
-// Deep copy using ~ JSON.parse(JSON.stringify())
+// Slice in JavaScript
 
-var arrayOne = [[1], [2], [3], [4]];
+var animals = ["ant", "bison", "camel", "duck", "elephant"];
 
-// Now first time we created a deep copy of arrayOne.
+// It'll return ["camel", "duck", "elephant"]
 
-var arrayTwo = JSON.parse(JSON.stringify(arrayOne));
+console.log(animals.slice(2));
 
-// It'll be same as arrayOne but this time it's deep copy so it won't have reference nested object values.
+// Here index value of 4 on animals is not going to included. It's like excluded value that we explicity passed.
 
-console.log(arrayTwo);
+// It'll return ["camel", "duck"]
 
-// To test this, Let's push something to original array's index 3.
+console.log(animals.slice(2, 4));
 
-arrayOne[3].push(5);
+// It'll return elements with index from 1 to 4, see 5 is explicitly passed as not included value.
 
-// Our original arrayOne now is ~ [[1], [2], [3], [4, 5]]
+// It'll return ["bison", "camel", "duck", "elephant"]
 
-console.log(arrayOne);
-
-// Let's check arrayTwo is deep copy so nothing is going to change inside that. let's check and confirm.
-
-// Yo, we won. It'll remain same nothing is going to change in it.
-
-console.log(arrayTwo);
+console.log(animals.slice(1, 5));
