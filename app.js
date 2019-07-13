@@ -1,18 +1,28 @@
-// Array.prototype.slice binding on Function.prototype
+// Array Intersection ~ Simple for Two Arrays.
 
-// Here first we created a reference of our slice method and assigned it in a variable unboundSlice.
+// First Implementation.
 
-var unboundSlice = Array.prototype.slice;
+function findIntersection(arrayOne, arrayTwo) {
+  const intersectionArray = new Array();
 
-// Now we explicity assign a property function ~ slice on the Function prototype and binded that property on the slice method that we above created a reference.
+  if (arrayOne.length > arrayTwo.length) {
+    for (let i = 0; i < arrayOne.length; i++) {
+      if (arrayTwo.includes(arrayOne[i])) {
+        intersectionArray.push(arrayOne[i]);
+      }
+      // No else clause here.
+    }
+  } else {
+    for (let i = 0; i < arrayTwo.length; i++) {
+      if (arrayOne.includes(arrayTwo[i])) {
+        intersectionArray.push(arrayTwo[i]);
+      }
+    }
+  }
 
-var slice = Function.prototype.call.bind(unboundSlice);
-
-function list() {
-  // Now our arguments object is automatically binded to our slice method.
-  return slice(arguments);
+  return intersectionArray;
 }
 
-// It'll be [1, 2, 3]
+console.log(findIntersection([1, 2, 3, 4], [1, 2, 3]));
 
-console.log(list(1, 2, 3));
+console.log(findIntersection([5, 3, 1, 2], [1, 2, 3, 4, 5, 5, 6, 7]));
