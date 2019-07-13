@@ -1,59 +1,31 @@
-// Array Intersection ~ Simple for Two Arrays.
+// Sorting function arguments ~ in case of multiple arrays are passed.
 
-// First Implementation.
+function generateArgumentsArray() {
+  // Step 1: First we generate an array from our arguments object using slice() ~ array-like-object
 
-// function findIntersection(arrayOne, arrayTwo) {
-//   const intersectionArray = new Array();
-
-//   if (arrayOne.length > arrayTwo.length) {
-//     for (let i = 0; i < arrayOne.length; i++) {
-//       if (arrayTwo.includes(arrayOne[i])) {
-//         intersectionArray.push(arrayOne[i]);
-//       }
-//       // No else clause here.
-//     }
-//   } else {
-//     for (let i = 0; i < arrayTwo.length; i++) {
-//       if (arrayOne.includes(arrayTwo[i])) {
-//         intersectionArray.push(arrayTwo[i]);
-//       }
-//     }
-//   }
-
-//   return intersectionArray;
-// }
-
-/*
-
-  Optimize for 
-
-  1. Remove two loops and use single loop ~ use DRY Principle.
-
-  2. If you find one element like 5 two times then don't add into intersection array two times.
-
-*/
-
-function findIntersection(arrayOne, arrayTwo) {
-  const intersectionArray = new Array();
-
-  const biggerArray = arrayOne.length > arrayTwo.length ? arrayOne : arrayTwo;
-
-  const smallerArray = arrayOne.length < arrayTwo.length ? arrayOne : arrayTwo;
-
-  for (let i = 0; i < biggerArray.length; i++) {
-    if (
-      smallerArray.includes(biggerArray[i]) &&
-      !intersectionArray.includes(biggerArray[i])
-    ) {
-      intersectionArray.push(biggerArray[i]);
-    }
-
-    // No, else clause here.
-  }
-
-  return intersectionArray;
+  return Array.prototype.slice.call(arguments);
 }
 
-console.log(findIntersection([1, 2, 3, 4], [1, 2, 3]));
+// Now we saved the return array that contains nested array inside that which is the result of calling generateArgumentsArray function.
 
-console.log(findIntersection([5, 3, 1, 2], [1, 2, 3, 4, 5, 5, 6, 7]));
+var argumentsListArray = generateArgumentsArray(
+  [1, 2, 3, 4],
+  [3, 2, 4],
+  [1, 2]
+);
+
+// Now we check our argumentsListArray. It'll be ~ [[1, 2, 3, 4], [3, 2, 4], [1, 2]]
+
+console.log(argumentsListArray);
+
+// *************************************************** //
+
+// Let's sort our argumentsListArray now based on length.
+
+var sortedListArray = argumentsListArray.sort(function(a, b) {
+  return a.length - b.length;
+});
+
+// Yo, we finally sorted our argumentsListArray based on the length. It'll be now ~ [[1, 2], [3, 2, 4], [1, 2, 3, 4]]
+
+console.log(sortedListArray);
