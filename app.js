@@ -1,31 +1,45 @@
-// Sorting function arguments ~ in case of multiple arrays are passed.
+function getIntersection() {
+  const argumentsArray = Array.prototype.slice.call(arguments);
 
-function generateArgumentsArray() {
-  // Step 1: First we generate an array from our arguments object using slice() ~ array-like-object
+  const sortedList = argumentsArray.sort(function(a, b) {
+    return a.length - b.length;
+  });
 
-  return Array.prototype.slice.call(arguments);
+  const lastItem = sortedList[sortedList.length - 1];
+
+  const intersectionArray = [];
+
+  for (let i = 0; i < sortedList.length - 1; i++) {
+    for (let j = 0; j < lastItem.length; j++) {
+      if (lastItem.includes(sortedList[i][j])) {
+        let counter = 0;
+        for (let k = 0; k < sortedList.length - 1; k++) {
+          if (
+            sortedList[k].includes(sortedList[i][j]) &&
+            !intersectionArray.includes(sortedList[i][j])
+          ) {
+            counter += 1;
+            if (counter === sortedList.length - 1) {
+              intersectionArray.push(sortedList[i][j]);
+              counter = 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return intersectionArray;
 }
 
-// Now we saved the return array that contains nested array inside that which is the result of calling generateArgumentsArray function.
+console.log(getIntersection([1, 3, 4], [12, 4, 1], [9, 5, 2, 1, 7]));
 
-var argumentsListArray = generateArgumentsArray(
-  [1, 2, 3, 4],
-  [3, 2, 4],
-  [1, 2]
+console.log(getIntersection([5, 2, 9], [12, 5, 2, 3], [20, 22, 5, 15, 2, 3]));
+
+console.log(
+  getIntersection([5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20])
 );
 
-// Now we check our argumentsListArray. It'll be ~ [[1, 2, 3, 4], [3, 2, 4], [1, 2]]
-
-console.log(argumentsListArray);
-
-// *************************************************** //
-
-// Let's sort our argumentsListArray now based on length.
-
-var sortedListArray = argumentsListArray.sort(function(a, b) {
-  return a.length - b.length;
-});
-
-// Yo, we finally sorted our argumentsListArray based on the length. It'll be now ~ [[1, 2], [3, 2, 4], [1, 2, 3, 4]]
-
-console.log(sortedListArray);
+console.log(
+  getIntersection([5, 2, 9], [12, 5, 2, 3], [20, 22, 5, 15, 2, 3], [2])
+);
